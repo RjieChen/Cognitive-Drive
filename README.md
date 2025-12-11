@@ -58,7 +58,9 @@ This repository provides the **DevKit** (development kit) to help researchers vi
   <img src="docs/sensor_setup_preview.png" width="800"/>
   <p><i>Figure 1. Visualization of the multi-modal data (LiDAR + Camera + 4D Radar) in a rainy scenario.</i></p>
 </div> -->
-<img width="2628" height="2284" alt="architecture" src="https://github.com/user-attachments/assets/501e1c65-7d9d-4323-9b90-8b576bdbe1a7" />
+<div align="center">
+  <img src="https://github.com/user-attachments/assets/501e1c65-7d9d-4323-9b90-8b576bdbe1a7" width="80%" alt="architecture" />
+</div>
 
 
 ## 2. Dataset & Acquisition Platform

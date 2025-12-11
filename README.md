@@ -1,13 +1,6 @@
 <div align="center">
   <h1>Cognitive-Drive: A High-Fidelity Multi-modal Autonomous Driving Dataset <br>& Value-Driven Data Curation Framework</h1>
   
-  <p>
-    <b>Ruijie CHEN</b><sup>1</sup>, <b>[Collaborator Name]</b><sup>1</sup>, <b>[Professor Name]</b><sup>1</sup>
-  </p>
-  
-  <p>
-    <sup>1</sup>College of Transportation Engineering, Tongji University
-  </p>
 
   <!-- 增加数据集相关的 Badge -->
   <a href="#">

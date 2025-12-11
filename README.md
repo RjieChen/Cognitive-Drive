@@ -53,13 +53,9 @@ Robust 3D perception in complex urban scenarios remains a critical challenge for
 
 This repository provides the **DevKit** (development kit) to help researchers visualize the data, parse annotations, and benchmark standard detectors (based on [OpenPCDet](https://github.com/open-mmlab/OpenPCDet)).
 
-<!-- <div align="center">
-  <!-- 建议放一张很酷的 GIF 或者拼接图，展示 点云+图像+Radar点 的叠加效果 -->
-  <img src="docs/sensor_setup_preview.png" width="800"/>
-  <p><i>Figure 1. Visualization of the multi-modal data (LiDAR + Camera + 4D Radar) in a rainy scenario.</i></p>
-</div> -->
 <div align="center">
-  <img src="https://github.com/user-attachments/assets/501e1c65-7d9d-4323-9b90-8b576bdbe1a7" width="80%" alt="architecture" />
+  <img src="https://github.com/user-attachments/assets/501e1c65-7d9d-4323-9b90-8b576bdbe1a7" width="60%" />
+  <p><i>Figure 1. The sensor architecture of the Cognitive-Drive Dataset.</i></p>
 </div>
 
 

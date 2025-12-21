@@ -35,7 +35,7 @@ class Object3d(object):
         self.rx = float(label[14])  # Roll
         self.ry = float(label[15])  # Yaw
         self.rz = float(label[16])  # Pitch
-        self.score = float(label[17]) if len(label) > 17 else -1.0 # 增加兼容性
+        self.score = float(label[17]) if len(label) > 17 else -1.0 
         self.track_id = float(label[18])  if len(label) > 18 else -1
         self.num_points = float(label[19])  if len(label) > 19 else -1
         self.level_str = None
@@ -77,38 +77,27 @@ class Object3d(object):
         return corners3d
 
 
-    # ★★★ 这是基于你的参考代码，最终修正的 generate_corners3d_9dof 版本 ★★★
     def generate_corners3d_9dof(self):
-        """
-        根据 9-DoF (l,w,h, rx,ry,rz) 和 几何中心 self.loc 生成相机坐标系下的角点。
-        该逻辑与您的可视化代码 compute_box_3d 完全一致。
-        """
+
         l, w, h = self.l, self.w, self.h
         
-        # 1. 创建一个以(0,0,0)为几何中心的8个角点模板。
-        #    该 y_corners 定义与您的可视化代码一致。
+
         x_corners = [l/2, l/2, -l/2, -l/2, l/2, l/2, -l/2, -l/2]
         z_corners = [h/2, h/2, h/2, h/2, -h/2, -h/2, -h/2, -h/2] 
         y_corners = [w/2, -w/2, -w/2, w/2, w/2, -w/2, -w/2, w/2]
 
-        # x_corners = [l / 2, l / 2, -l / 2, -l / 2, l / 2, l / 2, -l / 2, -l / 2]
-        # # y_corners = [0, 0, 0, 0, -h, -h, -h, -h]
-        # z_corners = [h / 2, h / 2, h / 2, h / 2, -h / 2, -h / 2, -h / 2, -h / 2]
-        # y_corners = [w / 2, -w / 2, -w / 2, w / 2, w / 2, -w / 2, -w / 2, w / 2]
+
 
         corners_obj_centered = np.vstack([x_corners, y_corners, z_corners])
 
-        # 2. 从欧拉角构建旋转矩阵。
         rot = R.from_euler('XYZ', [self.rx, self.ry, self.rz], degrees=False)
         rotation_matrix = rot.as_matrix()
 
-        # 3. 旋转角点模板。
         corners_rotated = np.dot(rotation_matrix, corners_obj_centered)
         
-        # 4. 将旋转后的角点整体平移到真实的几何中心位置 (self.loc)。
         corners_cam = corners_rotated + self.loc.reshape(3, 1)
         
-        return corners_cam.T # 返回 (8, 3)
+        return corners_cam.T 
     
 
     def to_str(self):

@@ -176,21 +176,6 @@ We have tested our framework on the following environment:
 We are currently finalizing the data release process. The dataset structure is organized as follows. 
 Please refer to `docs/DATASET_PREPARE.md` (to be released) for detailed instructions on data downloading and preprocessing.
 
-```plain
-Your_Project_Root
-├── data
-│   ├── your_dataset_name
-│   │   ├── ImageSets
-│   │   │   ├── train.txt
-│   │   │   ├── val.txt
-│   │   ├── training
-│   │   │   ├── calib        # Calibration files (Camera-LiDAR-Radar)
-│   │   │   ├── image_2      # Camera images
-│   │   │   ├── velodyne     # LiDAR point clouds
-│   │   │   ├── radar        # 4D Radar point clouds (Arbe/ARS548)
-│   │   │   ├── label_2      # KITTI formatted labels
-```
-```
 Your_Project_Root
 ├── data
 │   ├── tjsens                   # Your dataset root name

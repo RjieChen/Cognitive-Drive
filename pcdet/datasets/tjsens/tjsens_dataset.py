@@ -1,7 +1,6 @@
-# 文件路径: /pcdet/datasets/tjsens/tjsens_dataset.py
 import copy
 import pickle
-from pathlib import Path # 推荐使用 pathlib
+from pathlib import Path 
 
 import numpy as np
 import cv2
@@ -14,7 +13,7 @@ from ...ops.roiaware_pool3d import roiaware_pool3d_utils
 from ...utils import box_utils, calibration_kitti, common_utils, object3d_tjsens
 from ..dataset import DatasetTemplate
 
-class TjsensDataset(DatasetTemplate): # <--- 1. 类名修改
+class TjsensDataset(DatasetTemplate): 
     def __init__(self, dataset_cfg, class_names, training=True, root_path=None, logger=None):
         super().__init__(
             dataset_cfg=dataset_cfg, class_names=class_names, training=training, root_path=root_path, logger=logger
@@ -26,10 +25,10 @@ class TjsensDataset(DatasetTemplate): # <--- 1. 类名修改
 
         self.sample_id_list = [x.strip() for x in open(split_dir).readlines()] if split_dir.exists() else None
 
-        self.tjsens_infos = [] # <--- 变量名修改 (可选，但推荐)
+        self.tjsens_infos = [] 
         self.include_tjsens_data(self.mode)
 
-    def include_tjsens_data(self, mode): # <--- 方法名修改 (可选，但推荐)
+    def include_tjsens_data(self, mode): 
         if self.logger is not None:
             self.logger.info('Loading TJSens dataset')
         tjsens_infos = []
@@ -64,9 +63,8 @@ class TjsensDataset(DatasetTemplate): # <--- 1. 类名修改
         return np.fromfile(str(lidar_file), dtype=np.float32).reshape(-1, 4)
 
     def get_image(self, idx):
-        # ★★★ 2. 检查并修改图片扩展名 ★★★
-        img_file = self.root_split_path / 'image_2' / ('%s.jpeg' % idx) # 假设是 .jpeg
-        if not img_file.exists(): # 增加鲁棒性，如果 jpeg 不存在，尝试 jpg
+        img_file = self.root_split_path / 'image_2' / ('%s.jpeg' % idx) 
+        if not img_file.exists(): 
             img_file = self.root_split_path / 'image_2' / ('%s.jpg' % idx)
         assert img_file.exists(), f"Image file not found for index {idx}: tried .jpeg and .jpg"
         image = io.imread(img_file)
@@ -75,7 +73,6 @@ class TjsensDataset(DatasetTemplate): # <--- 1. 类名修改
         return image
 
     def get_image_shape(self, idx):
-        # ★★★ 2. 检查并修改图片扩展名 ★★★
         img_file = self.root_split_path / 'image_2' / ('%s.jpeg' % idx)
         if not img_file.exists():
             img_file = self.root_split_path / 'image_2' / ('%s.jpg' % idx)
@@ -155,7 +152,6 @@ class TjsensDataset(DatasetTemplate): # <--- 1. 类名修改
             if has_label:
                 obj_list = self.get_label(sample_idx)
                 annotations = {}
-                # 1. 直接读取非几何信息和原始2D框
                 annotations['name'] = np.array([obj.cls_type for obj in obj_list])
                 annotations['truncated'] = np.array([obj.truncation for obj in obj_list])
                 annotations['occluded'] = np.array([obj.occlusion for obj in obj_list])
@@ -170,57 +166,38 @@ class TjsensDataset(DatasetTemplate): # <--- 1. 类名修改
                 annotations['index'] = np.array(index, dtype=np.int32)
                     
 
-                # 2. 【核心】执行3D标注矫正，并确立LiDAR框为唯一真值
-                
-                # 创建一个列表来存储最终的、干净的LiDAR 7-DoF框
                 clean_gt_boxes_lidar_list = []
 
                 for obj in obj_list:
                     loc_camera_homogeneous = np.ones(4)
-                    loc_camera_homogeneous[:3] = obj.loc  # obj.t 就是您标注的 (tx, ty, tz)
+                    loc_camera_homogeneous[:3] = obj.loc  
 
-                    #    b. 计算从相机到雷达的变换矩阵 (Tr_velo_to_cam 的逆)
-                    #       calib.V2C 是 3x4 的 Tr_velo_to_cam
                     tr_v2c_4x4 = np.eye(4)
                     tr_v2c_4x4[:3, :] = calib.V2C
                     tr_c2v_4x4 = np.linalg.inv(tr_v2c_4x4)
 
-                    #    c. 执行坐标变换
                     loc_lidar_homogeneous = tr_c2v_4x4 @ loc_camera_homogeneous
                     cx_lidar, cy_lidar, cz_lidar = loc_lidar_homogeneous[:3]
 
-
-                    # 2. 计算物体在雷达坐标系下的原始 yaw 角
-                    #    a. 从标注 (rx,ry,rz) 获取 R_obj_in_cam
                     from scipy.spatial.transform import Rotation as R
                     rot = R.from_euler('XYZ', [obj.rx, obj.ry, obj.rz], degrees=False)
                     R_obj_in_cam = rot.as_matrix()
 
-                    #    b. 从 calib 获取 R_cam_<-_lidar
                     R_cam_from_lidar = calib.V2C[:3, :3]
 
-                    #    c. 计算 R_obj_in_lidar
                     R_lidar_from_cam = R_cam_from_lidar.T
                     R_obj_in_lidar = R_lidar_from_cam @ R_obj_in_cam
 
-                    #    d. 提取原始 yaw，不进行任何归一化
                     yaw_lidar_raw = np.arctan2(R_obj_in_lidar[1, 0], R_obj_in_lidar[0, 0])
 
-                    # 3. ★★★ 应用您的巧妙变换，将 yaw 映射到 [-1.5π, 0.5π] 区间 ★★★
                     if yaw_lidar_raw > np.pi / 2:
                         yaw_lidar_raw -= 2 * np.pi
 
-                    # 3. 直接使用原始尺寸 l, w, h
                     l, w, h = obj.l, obj.w, obj.h
 
-
-                    # 4. 组装最终的 gt_box
                     gt_box_lidar = np.array([cx_lidar, cy_lidar, cz_lidar, l, w, h, yaw_lidar_raw])
                     clean_gt_boxes_lidar_list.append(gt_box_lidar)
 
-                
-                # 将列表转换为NumPy数组，并直接存入annotations
-                # 这现在是我们唯一的3D真值来源
                 gt_boxes_lidar = np.array(clean_gt_boxes_lidar_list, dtype=np.float32)
                 annotations['gt_boxes_lidar'] = gt_boxes_lidar
                 
@@ -231,7 +208,6 @@ class TjsensDataset(DatasetTemplate): # <--- 1. 类名修改
                 annotations['dimensions'] = gt_boxes_camera[:, 3:6][:, [1, 2, 0]] # lhw -> hwl
                 annotations['rotation_y'] = gt_boxes_camera[:, 6]
 
-                # 4. 填充剩余信息
                 info['annos'] = annotations
 
                 if count_inside_pts:
@@ -240,7 +216,6 @@ class TjsensDataset(DatasetTemplate): # <--- 1. 类名修改
                     pts_rect = calib.lidar_to_rect(points[:, 0:3])
                     fov_flag = self.get_fov_flag(pts_rect, info['image']['image_shape'], calib)
                     pts_fov = points[fov_flag]
-                    # 直接使用我们干净的 gt_boxes_lidar
                     corners_lidar_gt = box_utils.boxes_to_corners_3d(gt_boxes_lidar)
                     num_points_in_gt = -np.ones(num_objects, dtype=np.int32)
                     for k in range(num_objects):
@@ -249,8 +224,6 @@ class TjsensDataset(DatasetTemplate): # <--- 1. 类名修改
                     annotations['num_points_in_gt'] = num_points_in_gt
 
             return info
-
-
 
         sample_id_list = sample_id_list if sample_id_list is not None else self.sample_id_list
         with futures.ThreadPoolExecutor(num_workers) as executor:
@@ -274,7 +247,6 @@ class TjsensDataset(DatasetTemplate): # <--- 1. 类名修改
             info = infos[k]
             sample_idx = info['point_cloud']['lidar_idx']
             points = self.get_lidar(sample_idx)
-            #点云应用倾斜矫正
             annos = info['annos']
             names = annos['name']
             difficulty = annos['difficulty']
@@ -312,10 +284,7 @@ class TjsensDataset(DatasetTemplate): # <--- 1. 类名修改
 
     @staticmethod
     def generate_prediction_dicts(batch_dict, pred_dicts, class_names, output_path=None):
-        """
-        新版：不再生成KITTI格式文件，不再进行任何坐标系转换。
-        只提取模型在雷达坐标系下的直接预测结果，以供我们新的纯雷达评估函数使用。
-        """
+
         annos = []
         for index, box_dict in enumerate(pred_dicts):
             # 1. 从PyTorch Tensor中提取核心预测数据，并转为NumPy数组
@@ -323,7 +292,6 @@ class TjsensDataset(DatasetTemplate): # <--- 1. 类名修改
             pred_boxes_lidar = box_dict['pred_boxes'].cpu().numpy()
             pred_labels = box_dict['pred_labels'].cpu().numpy()
 
-            # 如果该样本没有检测到任何物体，创建一个空字典并继续
             if pred_labels.shape[0] == 0:
                 single_pred_dict = {
                     'frame_id': batch_dict['frame_id'][index],
@@ -334,21 +302,16 @@ class TjsensDataset(DatasetTemplate): # <--- 1. 类名修改
                 annos.append(single_pred_dict)
                 continue
 
-            # 2. 将类别标签(整数)转换为类别名称(字符串)
             pred_names = np.array(class_names)[pred_labels - 1]
-
-            # 3. 将所有需要的信息打包到一个简单的字典中
             single_pred_dict = {
                 'frame_id': batch_dict['frame_id'][index],
                 'name': pred_names,
                 'score': pred_scores,
-                'boxes_lidar': pred_boxes_lidar  # <--- 这是我们需要的核心信息
+                'boxes_lidar': pred_boxes_lidar  
             }
             annos.append(single_pred_dict)
 
         return annos
-
-
 
     def evaluation(self, det_annos, class_names, **kwargs):
         if 'annos' not in self.tjsens_infos[0].keys():
@@ -411,9 +374,7 @@ class TjsensDataset(DatasetTemplate): # <--- 1. 类名修改
 
     @staticmethod
     def calculate_map(pred_dicts, gt_boxes_list, iou_thresh, metric='3d'):
-        """
-        最终简洁版：只计算总体AP，不再划分难度。
-        """
+
         num_samples = len(pred_dicts)
         
         preds_info = []
@@ -483,7 +444,6 @@ class TjsensDataset(DatasetTemplate): # <--- 1. 类名修改
         return ap_11, ap_40
 
 
-
     def __len__(self):
         if self._merge_all_iters_to_one_epoch:
             return len(self.tjsens_infos) * self.total_epochs
@@ -549,14 +509,11 @@ class TjsensDataset(DatasetTemplate): # <--- 1. 类名修改
         data_dict['image_shape'] = img_shape
         return data_dict
         
-# 确保所有函数都已正确关闭
-# ...
 
 def create_tjsens_infos(dataset_cfg, class_names, data_path, save_path, workers=4): # <--- 3. 函数名修改
     dataset = TjsensDataset(dataset_cfg=dataset_cfg, class_names=class_names, root_path=data_path, training=False)
     train_split, val_split = 'train', 'val'
 
-    # 3. 文件名修改
     train_filename = save_path / ('tjsens_infos_%s.pkl' % train_split)
     val_filename = save_path / ('tjsens_infos_%s.pkl' % val_split)
     trainval_filename = save_path / 'tjsens_infos_trainval.pkl'
@@ -595,18 +552,17 @@ def create_tjsens_infos(dataset_cfg, class_names, data_path, save_path, workers=
 
 if __name__ == '__main__':
     import sys
-    if sys.argv.__len__() > 1 and sys.argv[1] == 'create_tjsens_infos': # <--- 4. 命令名修改
+    if sys.argv.__len__() > 1 and sys.argv[1] == 'create_tjsens_infos':
         import yaml
         from pathlib import Path
         from easydict import EasyDict
         dataset_cfg = EasyDict(yaml.safe_load(open(sys.argv[2])))
         ROOT_DIR = (Path(__file__).resolve().parent / '../../../').resolve()
         
-        # ★★★ 确保这里的路径和类别正确 ★★★
         DATA_PATH = ROOT_DIR / 'data' / 'tjsens' 
-        CLASS_NAMES = ['Car', 'Pedestrian', 'Cyclist', 'Truck'] # 替换为你自己的类别
+        CLASS_NAMES = ['Car', 'Pedestrian', 'Cyclist', 'Truck'] 
         
-        create_tjsens_infos( # <--- 4. 函数调用修改
+        create_tjsens_infos( 
             dataset_cfg=dataset_cfg,
             class_names=CLASS_NAMES,
             data_path=DATA_PATH,

@@ -1,8 +1,6 @@
 <div align="center">
   <h1>Cognitive-Drive: A High-Fidelity Multi-modal Autonomous Driving Dataset & Value-Driven Data Curation Framework</h1>
   
-
-  <!-- 增加数据集相关的 Badge -->
   <a href="#">
     <img src="https://img.shields.io/badge/Dataset-LiDAR%20%7C%204D%20Radar%20%7C%20Camera-blue" alt="Dataset">
   </a>
@@ -50,7 +48,6 @@ This repository provides the **DevKit** (development kit) to help researchers vi
   <img src="https://github.com/user-attachments/assets/ff600486-1bd7-431d-9e81-a2b78887440c" width="60%" />
   <p><i>Figure 1. The sensor architecture of the Cognitive-Drive Dataset.</i></p>
 </div>
-
 
 ## 2. Dataset & Acquisition Platform
 ### Sensor Configuration

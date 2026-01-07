@@ -1,5 +1,5 @@
 <div align="center">
-  <h1>Cognitive-Drive: A High-Fidelity Multi-modal Autonomous Driving Dataset <br>& Value-Driven Data Curation Framework</h1>
+  <h1>Cognitive-Drive: A High-Fidelity Multi-modal Autonomous Driving Dataset & Value-Driven Data Curation Framework</h1>
   
 
   <!-- 增加数据集相关的 Badge -->

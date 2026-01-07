@@ -106,7 +106,7 @@ We extend the standard **KITTI-format** for our 3D annotations to include richer
 *   **Classes**: We focus on four main classes: `Car`, `Pedestrian`, `Cyclist`, and `Truck`.
 
 <div align="center">
-  <img src="https://github.com/user-attachments/assets/3c0f9a7b-a8cb-4e9a-a424-597e2c2c4013" width="60%" />
+  <img src="https://github.com/user-attachments/assets/3c0f9a7b-a8cb-4e9a-a424-597e2c2c4013" width="45%" />
   <p><i>Figure 2. Object class distribution of the Cognitive-Drive dataset.</i></p>
 </div>
 

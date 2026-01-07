@@ -47,7 +47,7 @@ Robust 3D perception in complex urban scenarios remains a critical challenge for
 This repository provides the **DevKit** (development kit) to help researchers visualize the data, parse annotations, and benchmark standard detectors (based on [OpenPCDet](https://github.com/open-mmlab/OpenPCDet)).
 
 <div align="center">
-  <img width="3511" height="2126" alt="data_collection" src="https://github.com/user-attachments/assets/ff600486-1bd7-431d-9e81-a2b78887440c" width="60%" />
+  <src="https://github.com/user-attachments/assets/ff600486-1bd7-431d-9e81-a2b78887440c" width="60%" />
   <p><i>Figure 1. The sensor architecture of the Cognitive-Drive Dataset.</i></p>
 </div>
 
@@ -289,7 +289,7 @@ Qualitative results demonstrate the complementarity of our sensor suite. Even wh
 
 <div align="center">
   <img![visualization](https://github.com/user-attachments/assets/93174634-e3c7-446d-bf00-07a2d41d4ce4) width="90%" />
-  <p><i>Figure 4. Representing 3D annotations in multiple scenarios and sensor modalities. The three columns respectively display the projection of 3D annotation boxes in images, LiDAR point clouds and 4D radar detection. Each row represents a scenario type. (a) downtown daytime normal light; (b) downtown clear night; (c) downtown heavy rain; (d) highway daytime normal light; (e) suburb daytime cloudy; (f) daytime tunnel.</i></p>
+  <p><i>Figure 4. Representing 3D annotations in multiple scenarios and sensor modalities. The three columns respectively display the projection of 3D annotation boxes in images, LiDAR point clouds and 4D radar detection.</i></p>
 </div>
 
 

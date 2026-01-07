@@ -134,29 +134,17 @@ Each line in a label file corresponds to a single object and contains 20 values,
    1        num_points   Number of LiDAR points within the 3D box.
 ```
 ## 3. Data Statistics
+
 ### Scenario Distribution
 
-The Cognitive-Drive dataset covers a wide range of environmental and traffic conditions to ensure robustness.
+| Dimension | Detailed Breakdown |
+| :--- | :--- |
+| 🕒 **Time** | **Daytime** (81.4%), **Night** (13.3%), **Dawn** (5.3%) |
+| 🌦️ **Weather** | **Sunny** (56.0%), **Cloudy** (24.8%), **Rainy** (15.2%), Foggy (4.0%) |
+| 🏙️ **Area** | **Downtown** (41.7%), **Suburbs** (30.5%), Highway (12.9%), Tunnel (9.3%), Bridge (5.6%) |
+| 🚦 **Traffic** | **Slow-Moving** (43.9%), **Free Flow** (37.7%), **Congested** (18.5%) |
 
-| Dimension | Scenario | Percentage |
-| :--- | :--- | :---: |
-| **Time** | Daytime | 81.44% |
-| | Dawn | 5.30% |
-| | Night | 13.26% |
-| **Weather** | Sunny | 56.01% |
-| | Cloudy | 24.79% |
-| | Foggy | 3.98% |
-| | Rainy | 15.22% |
-| **Area** | Downtown | 41.68% |
-| | Suburbs | 30.51% |
-| | Tunnel | 9.32% |
-| | Highway | 12.92% |
-| | Bridge | 5.57% |
-| **Traffic** | Free Flow | 37.65% |
-| | Slow-Moving | 43.89% |
-| | Congested | 18.47% |
-
-Stratified spatial distribution, with "Car" dominant in the 20-60m high-density ROI, and "Pedestrian" consistent across ranges.
+### Stratified Spatial Distribution
 
 <div align="center">
   <img src="https://github.com/user-attachments/assets/00fb45cd-5aa6-4c3e-b496-63009a2985c2" width="80%" />
@@ -235,7 +223,7 @@ We have tested our framework on the following environment:
 
 ### Data Info Generation
 
-Before training, the dataset infos need to be generated using the following command (example):
+Before training, the dataset infos need to be generated using the following command:
 
 ```bash
 # Generate data infos for training
@@ -282,9 +270,6 @@ We provide the baseline performance of state-of-the-art 3D object detectors on t
 > *Note: The mAP column represents the mean of the APs across the four classes. Best results are highlighted in bold.*
 
 ## 7. Visualization
-
-Qualitative results demonstrate the complementarity of our sensor suite. Even when camera visibility degrades (heavy rain/night), LiDAR maintains structural integrity, and 4D Radar provides robust detections.
-
 
 <div align="center">
   <img src="https://github.com/user-attachments/assets/93174634-e3c7-446d-bf00-07a2d41d4ce4" alt="visualization" width="90%" />

@@ -28,7 +28,7 @@
 
 **Cognitive-Drive** is designed to stress-test autonomous perception systems in complex, open-world environments. Unlike static datasets, it is curated using a value-driven active learning approach.
 
-- **🏎️ Multi-modal Sensor Suite**: High-resolution **Solid-state LiDAR**, **4D Millimeter-wave Radar**, and **8MP Camera**, fully synchronized and calibrated.
+- **🏎️ Multi-modal Sensor Suite**: High-resolution **Hybrid Solid-state LiDAR**, **4D Millimeter-wave Radar**, and **8MP Camera**, fully synchronized and calibrated.
 - **🌧️ Adverse Weather Focus**: Captures real-world signal degradation in heavy rain, night, and foggy conditions (over 12% rainy frames).
 - **🎯 Safety-Critical Scenarios**: High density of Vulnerable Road Users (VRUs) and long-tail geometric anomalies mined from massive data streams.
 - **🛠️ Value-Driven Curation**: All frames are selected by our *Cognitive-Prism* framework, ensuring high information density and geometric diversity.

@@ -47,8 +47,13 @@ Robust 3D perception in complex urban scenarios remains a critical challenge for
 This repository provides the **DevKit** (development kit) to help researchers visualize the data, parse annotations, and benchmark standard detectors (based on [OpenPCDet](https://github.com/open-mmlab/OpenPCDet)).
 
 <div align="center">
-  <img src="https://github.com/user-attachments/assets/501e1c65-7d9d-4323-9b90-8b576bdbe1a7" width="60%" />
+  <img width="3511" height="2126" alt="data_collection" src="https://github.com/user-attachments/assets/ff600486-1bd7-431d-9e81-a2b78887440c" width="60%" />
   <p><i>Figure 1. The sensor architecture of the Cognitive-Drive Dataset.</i></p>
+</div>
+
+<div align="center">
+  <img![visualization](https://github.com/user-attachments/assets/c01a24e7-31e7-4b26-b733-309d881d3d19) width="80%" />
+  <p><i>Figure 2. Representing 3D annotations in multiple scenarios and sensor modalities. The three columns respectively display the projection of 3D annotation boxes in images, LiDAR point clouds and 4D radar detection. Each row represents a scenario type. (a) downtown daytime normal light; (b) downtown clear night; (c) downtown heavy rain; (d) highway daytime normal light; (e) suburb daytime cloudy; (f) daytime tunnel.</i></p>
 </div>
 
 
@@ -105,15 +110,21 @@ Our autonomous driving research platform is equipped with a high-resolution Came
 
 We extend the standard **KITTI-format** for our 3D annotations to include richer orientation details, while ensuring broad compatibility with existing tools.
 
-*   **Coordinate System**: All 3D labels (`location`, `dimensions`) are provided in the **rectified Camera Coordinate System**.
+*   **Coordinate System**: All 3D labels (`location`, `dimensions`) are provided in the **Camera Coordinate System**.
 *   **Classes**: We focus on four main classes: `Car`, `Pedestrian`, `Cyclist`, and `Truck`.
+<img width="1478" height="1105" alt="dataset_distribution" src="https://github.com/user-attachments/assets/3c0f9a7b-a8cb-4e9a-a424-597e2c2c4013" />
+
+<div align="center">
+  <img width="1478" height="1105" alt="dataset_distribution" src="https://github.com/user-attachments/assets/3c0f9a7b-a8cb-4e9a-a424-597e2c2c4013" width="60%" />
+  <p><i>Figure 2. Object class distribution of the Cognitive-Drive dataset.</i></p>
+</div>
 
 ### Label File Structure
 
 Each line in a label file corresponds to a single object and contains 20 values, as detailed below.
 
 ```text
-# Cognitive-Drive Custom Label Format
+# Cognitive-Drive Label Format
 # Values    Name         Description
 ---------------------------------------------------------------------------------------------------
    1        type         'Car', 'Pedestrian', 'Cyclist', 'Truck', etc.
@@ -128,7 +139,62 @@ Each line in a label file corresponds to a single object and contains 20 values,
    1        track_id     Tracking ID of the object.
    1        num_points   Number of LiDAR points within the 3D box.
 ```
-## 3. Getting Started
+## 3. Data Statistics
+### Scenario Distribution
+
+The Cognitive-Drive dataset covers a wide range of environmental and traffic conditions to ensure robustness.
+
+| Dimension | Scenario | Percentage |
+| :--- | :--- | :---: |
+| **Time** | Daytime | 81.44% |
+| | Dawn | 5.30% |
+| | Night | 13.26% |
+| **Weather** | Sunny | 56.01% |
+| | Cloudy | 24.79% |
+| | Foggy | 3.98% |
+| | Rainy | 15.22% |
+| **Area** | Downtown | 41.68% |
+| | Suburbs | 30.51% |
+| | Tunnel | 9.32% |
+| | Highway | 12.92% |
+| | Bridge | 5.57% |
+| **Traffic** | Free Flow | 37.65% |
+| | Slow-Moving | 43.89% |
+| | Congested | 18.47% |
+
+Stratified spatial distribution, with "Car" dominant in the 20-60m high-density ROI, and "Pedestrian" consistent across ranges.
+
+<div align="center">
+  <img width="5939" height="2337" alt="combined_distribution2" src="https://github.com/user-attachments/assets/00fb45cd-5aa6-4c3e-b496-63009a2985c2" width="80%" />
+  <p><i>Figure 3. Statistical distribution of annotated objects.</i></p>
+</div>
+
+## 4. Dataset Preparation
+
+We are currently finalizing the data release process. The dataset structure is organized as follows. 
+```text
+Your_Project_Root
+├── data
+│   ├── tjsens                   # Your dataset root name
+│   │   ├── gt_database          # Generated ground truth database for augmentation
+│   │   ├── ImageSets
+│   │   │   ├── train.txt
+│   │   │   ├── val.txt
+│   │   │   ├── test.txt
+│   │   ├── testing              # Testing split
+│   │   │   ├── calib
+│   │   │   ├── image_2
+│   │   │   ├── radar
+│   │   │   ├── velodyne
+│   │   ├── training             # Training split
+│   │   │   ├── calib            # Calibration files
+│   │   │   ├── image_2          # Camera images
+│   │   │   ├── label_2          # KITTI formatted labels
+│   │   │   ├── radar            # 4D Radar point clouds
+│   │   │   ├── velodyne         # LiDAR point clouds
+```
+
+## 5. Getting Started
 
 ### Environment Requirements
 We have tested our framework on the following environment:
@@ -142,7 +208,7 @@ We have tested our framework on the following environment:
 
 1.  **Clone this repository**
     ```bash
-    git clone [https://github.com/your-username/your-repo-name.git](https://github.com/your-username/your-repo-name.git)
+    git clone [https://github.com/RjieChen/Cognitive-Drive.git](https://github.com/RjieChen/Cognitive-Drive.git)
     cd your-repo-name
     ```
 
@@ -170,33 +236,8 @@ We have tested our framework on the following environment:
     ```bash
     python setup.py develop
     ```
-
-## 4. Dataset Preparation
-
-We are currently finalizing the data release process. The dataset structure is organized as follows. 
-Please refer to `docs/DATASET_PREPARE.md` (to be released) for detailed instructions on data downloading and preprocessing.
-```text
-Your_Project_Root
-├── data
-│   ├── tjsens                   # Your dataset root name
-│   │   ├── gt_database          # Generated ground truth database for augmentation
-│   │   ├── ImageSets
-│   │   │   ├── train.txt
-│   │   │   ├── val.txt
-│   │   │   ├── test.txt
-│   │   ├── testing              # Testing split
-│   │   │   ├── calib
-│   │   │   ├── image_2
-│   │   │   ├── radar
-│   │   │   ├── velodyne
-│   │   ├── training             # Training split
-│   │   │   ├── calib            # Calibration files
-│   │   │   ├── image_2          # Camera images
-│   │   │   ├── label_2          # KITTI formatted labels
-│   │   │   ├── radar            # 4D Radar point clouds
-│   │   │   ├── velodyne         # LiDAR point clouds
-```
-## 5. Usage
+    
+## 6. Usage
 
 ### Data Info Generation
 
@@ -228,7 +269,7 @@ python -m pcdet.datasets.tjsens.tjsens_dataset create_tjsens_infos tools/cfgs/da
     python test.py --cfg_file cfgs/pv_rcnn.yaml --batch_size 4 --ckpt path/to/checkpoint.pth
     ```
 
-## 6. Experimental Results
+### Benchmark Results (3D AP)
 
 We provide the baseline performance of state-of-the-art 3D object detectors on the **Cognitive-Drive** test set. All scores are reported as **3D Average Precision (AP)**.
 
@@ -246,12 +287,21 @@ We provide the baseline performance of state-of-the-art 3D object detectors on t
 
 > *Note: The mAP column represents the mean of the APs across the four classes. Best results are highlighted in bold.*
 
-## 7. Acknowledgement
+## 7. Visualization
+
+Qualitative results demonstrate the complementarity of our sensor suite. Even when camera visibility degrades (heavy rain/night), LiDAR maintains structural integrity, and 4D Radar provides robust detections.
+
+<div align="center">
+  <img![visualization](https://github.com/user-attachments/assets/c01a24e7-31e7-4b26-b733-309d881d3d19) width="80%" />
+  <p><i>Figure 4. Representing 3D annotations in multiple scenarios and sensor modalities. The three columns respectively display the projection of 3D annotation boxes in images, LiDAR point clouds and 4D radar detection. Each row represents a scenario type. (a) downtown daytime normal light; (b) downtown clear night; (c) downtown heavy rain; (d) highway daytime normal light; (e) suburb daytime cloudy; (f) daytime tunnel.</i></p>
+</div>
+
+## 8. Acknowledgement
 
 Our code is built upon [OpenPCDet](https://github.com/open-mmlab/OpenPCDet). We thank the authors for their open-source contribution.
 
 
-## 8\.Contact
+## 9\.Contact
 
 For any questions, please feel free to contact:
 

@@ -107,7 +107,6 @@ We extend the standard **KITTI-format** for our 3D annotations to include richer
 
 *   **Coordinate System**: All 3D labels (`location`, `dimensions`) are provided in the **Camera Coordinate System**.
 *   **Classes**: We focus on four main classes: `Car`, `Pedestrian`, `Cyclist`, and `Truck`.
-<img width="1478" height="1105" alt="dataset_distribution" src="https://github.com/user-attachments/assets/3c0f9a7b-a8cb-4e9a-a424-597e2c2c4013" />
 
 <div align="center">
   <img src="https://github.com/user-attachments/assets/3c0f9a7b-a8cb-4e9a-a424-597e2c2c4013" width="60%" />
@@ -288,7 +287,7 @@ Qualitative results demonstrate the complementarity of our sensor suite. Even wh
 
 
 <div align="center">
-  <img src="https://github.com/user-attachments/assets/93174634-e3c7-446d-bf00-07a2d41d4ce4" width="90%" />
+  <img src="https://github.com/user-attachments/assets/93174634-e3c7-446d-bf00-07a2d41d4ce4" alt="visualization" width="90%" />
   <p><i>Figure 4. Representing 3D annotations in multiple scenarios and sensor modalities. The three columns respectively display the projection of 3D annotation boxes in images, LiDAR point clouds and 4D radar detection.</i></p>
 </div>
 

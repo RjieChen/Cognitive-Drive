@@ -47,7 +47,7 @@ Robust 3D perception in complex urban scenarios remains a critical challenge for
 This repository provides the **DevKit** (development kit) to help researchers visualize the data, parse annotations, and benchmark standard detectors (based on [OpenPCDet](https://github.com/open-mmlab/OpenPCDet)).
 
 <div align="center">
-  <src="https://github.com/user-attachments/assets/ff600486-1bd7-431d-9e81-a2b78887440c" width="60%" />
+  <img src="https://github.com/user-attachments/assets/ff600486-1bd7-431d-9e81-a2b78887440c" width="60%" />
   <p><i>Figure 1. The sensor architecture of the Cognitive-Drive Dataset.</i></p>
 </div>
 
@@ -110,7 +110,7 @@ We extend the standard **KITTI-format** for our 3D annotations to include richer
 <img width="1478" height="1105" alt="dataset_distribution" src="https://github.com/user-attachments/assets/3c0f9a7b-a8cb-4e9a-a424-597e2c2c4013" />
 
 <div align="center">
-  <src="https://github.com/user-attachments/assets/3c0f9a7b-a8cb-4e9a-a424-597e2c2c4013" width="60%" />
+  <img src="https://github.com/user-attachments/assets/3c0f9a7b-a8cb-4e9a-a424-597e2c2c4013" width="60%" />
   <p><i>Figure 2. Object class distribution of the Cognitive-Drive dataset.</i></p>
 </div>
 
@@ -160,7 +160,7 @@ The Cognitive-Drive dataset covers a wide range of environmental and traffic con
 Stratified spatial distribution, with "Car" dominant in the 20-60m high-density ROI, and "Pedestrian" consistent across ranges.
 
 <div align="center">
-  <src="https://github.com/user-attachments/assets/00fb45cd-5aa6-4c3e-b496-63009a2985c2" width="80%" />
+  <img src="https://github.com/user-attachments/assets/00fb45cd-5aa6-4c3e-b496-63009a2985c2" width="80%" />
   <p><i>Figure 3. Statistical distribution of annotated objects.</i></p>
 </div>
 
@@ -288,7 +288,7 @@ Qualitative results demonstrate the complementarity of our sensor suite. Even wh
 
 
 <div align="center">
-  <img![visualization](https://github.com/user-attachments/assets/93174634-e3c7-446d-bf00-07a2d41d4ce4) width="90%" />
+  <img src="https://github.com/user-attachments/assets/93174634-e3c7-446d-bf00-07a2d41d4ce4" width="90%" />
   <p><i>Figure 4. Representing 3D annotations in multiple scenarios and sensor modalities. The three columns respectively display the projection of 3D annotation boxes in images, LiDAR point clouds and 4D radar detection.</i></p>
 </div>
 

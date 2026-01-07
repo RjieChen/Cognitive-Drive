@@ -282,7 +282,7 @@ We provide the baseline performance of state-of-the-art 3D object detectors on t
 Our code is built upon [OpenPCDet](https://github.com/open-mmlab/OpenPCDet). We thank the authors for their open-source contribution.
 
 
-## 9\.Contact
+## 9. Contact
 
 For any questions, please feel free to contact:
 

@@ -160,6 +160,11 @@ Each line in a label file corresponds to a single object and contains 20 values,
   <p><i>Figure 5. Intensity distributions: Sunny, Light Rain, Heavy Rain.</i></p>
 </div>
 
+### Environmental Degradation
+<div align="center">
+  <img src="https://github.com/user-attachments/assets/069d0996-e75a-4c1f-bfde-45daae6de1d7"  width="80%" />
+  <p><i>Figure 6. LiDAR Point Cloud Degradation: Signal Loss & Noise in Rain.</i></p>
+</div>
 
 ## 4. Dataset Preparation
 
@@ -283,7 +288,7 @@ We provide the baseline performance of state-of-the-art 3D object detectors on t
 
 <div align="center">
   <img src="https://github.com/user-attachments/assets/93174634-e3c7-446d-bf00-07a2d41d4ce4" alt="visualization" width="90%" />
-  <p><i>Figure 6. Representing 3D annotations in multiple scenarios and sensor modalities. The three columns respectively display the projection of 3D annotation boxes in images, LiDAR point clouds and 4D radar detection.</i></p>
+  <p><i>Figure 7. Representing 3D annotations in multiple scenarios and sensor modalities. The three columns respectively display the projection of 3D annotation boxes in images, LiDAR point clouds and 4D radar detection.</i></p>
 </div>
 
 

@@ -162,9 +162,10 @@ Each line in a label file corresponds to a single object and contains 20 values,
 
 ### Environmental Degradation
 <div align="center">
-  <img src="https://github.com/user-attachments/assets/069d0996-e75a-4c1f-bfde-45daae6de1d7"  width="80%" />
+  <img src="https://github.com/user-attachments/assets/c86346d0-c30f-42d8-b7e5-14cdb6189428"  width="80%" />
   <p><i>Figure 6. LiDAR Point Cloud Degradation: Signal Loss & Noise in Rain.</i></p>
 </div>
+
 
 ## 4. Dataset Preparation
 

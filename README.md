@@ -141,12 +141,25 @@ Each line in a label file corresponds to a single object and contains 20 values,
 | 🏙️ **Area** | **Downtown** (41.7%), **Suburbs** (30.5%), Highway (12.9%), Tunnel (9.3%), Bridge (5.6%) |
 | 🚦 **Traffic** | **Slow-Moving** (43.9%), **Free Flow** (37.7%), **Congested** (18.5%) |
 
-### Stratified Spatial Distribution
+### Spatial and Orientation Diversity
 
 <div align="center">
   <img src="https://github.com/user-attachments/assets/00fb45cd-5aa6-4c3e-b496-63009a2985c2" width="80%" />
   <p><i>Figure 3. Statistical distribution of annotated objects.</i></p>
 </div>
+
+### Point Cloud Density
+<div align="center">
+  <img src="https://github.com/user-attachments/assets/01e19765-967e-43b6-8b93-d9c00a25f99f" width="80%" />
+  <p><i>Figure 4. Point Cloud Resolution: LiDAR vs. 4D Radar.</i></p>
+</div>
+
+### Reflective Intensity under Diverse Weather
+<div align="center">
+  <img src="https://github.com/user-attachments/assets/18fa43ad-c9fb-42ec-97fc-20676a658252"  width="80%" />
+  <p><i>Figure 5. Intensity distributions: Sunny, Light Rain, Heavy Rain.</i></p>
+</div>
+
 
 ## 4. Dataset Preparation
 
